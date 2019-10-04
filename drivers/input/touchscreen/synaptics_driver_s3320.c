@@ -177,7 +177,7 @@ struct test_header {
 
 // Button key codes
 #define KEY_BUTTON_LEFT     KEY_BACK
-#define KEY_BUTTON_RIGHT    KEY_APPSELECT
+#define KEY_BUTTON_RIGHT    KEY_BACK
 
 /*********************for Debug LOG switch*******************/
 #define TPD_ERR(a, arg...)  pr_err(TPD_DEVICE ": " a, ##arg)
@@ -1563,11 +1563,11 @@ INT_TOUCH_END:
 	mutex_unlock(&ts->mutexreport);
 }
 #ifdef SUPPORT_TP_TOUCHKEY
-#define OEM_KEY_BACK (key_switch ? KEY_APPSELECT : KEY_BACK)
-#define OEM_KEY_APPSELECT (key_switch ? KEY_BACK : KEY_APPSELECT)
+#define OEM_KEY_BACK KEY_BACK
+#define OEM_KEY_APPSELECT KEY_BACK
 #else
 #define OEM_KEY_BACK KEY_BACK
-#define OEM_KEY_APPSELECT KEY_APPSELECT
+#define OEM_KEY_APPSELECT KEY_BACK
 #endif
 static void int_key_report_s3508(struct synaptics_ts_data *ts)
 {
