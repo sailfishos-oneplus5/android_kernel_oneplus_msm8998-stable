@@ -107,17 +107,34 @@ struct test_header {
 
 /*********************for gesture*******************/
 #ifdef SUPPORT_GESTURE
-#define ENABLE_UNICODE  0x40
-#define ENABLE_VEE      0x20
-#define ENABLE_CIRCLE   0x08
-#define ENABLE_SWIPE    0x02
-#define ENABLE_DTAP     0x01
+// Legacy defines that never get used anywhere
+//#define ENABLE_UNICODE  0x40
+//#define ENABLE_VEE      0x20
+//#define ENABLE_CIRCLE   0x08
+//#define ENABLE_SWIPE    0x02
+//#define ENABLE_DTAP     0x01
 
 #define UNICODE_DETECT  0x0b
 #define VEE_DETECT      0x0a
 #define CIRCLE_DETECT   0x08
 #define SWIPE_DETECT    0x07
 #define DTAP_DETECT     0x03
+
+// Gesture event codes
+#define MSC_GESTURE_DOUBLE_TAP    4
+#define MSC_GESTURE_DOUBLE_SWIPE  5
+#define MSC_GESTURE_ARROW_UP      6
+#define MSC_GESTURE_ARROW_DOWN    7
+#define MSC_GESTURE_ARROW_LEFT    8
+#define MSC_GESTURE_ARROW_RIGHT   9
+#define MSC_GESTURE_LETTER_O      10
+#define MSC_GESTURE_LETTER_S      11
+#define MSC_GESTURE_LETTER_M      12
+#define MSC_GESTURE_LETTER_W      13
+#define MSC_GESTURE_SWIPE_UP      14
+#define MSC_GESTURE_SWIPE_DOWN    15
+#define MSC_GESTURE_SWIPE_LEFT    16
+#define MSC_GESTURE_SWIPE_RIGHT   17
 
 // Gesture bit mask
 #define BIT0 (0x1 << 0)
@@ -135,7 +152,7 @@ struct test_header {
 #define BITC (0x1 << 12)
 #define BITD (0x1 << 13)
 #define BITE (0x1 << 14)
-#define BITF (0x1 << 15)
+//#define BITF (0x1 << 15) // Not used for anything
 
 // Gesture flags
 #define GESTURE_NONE            BIT0
@@ -155,20 +172,21 @@ struct test_header {
 #define GESTURE_S               BITE // S
 
 // Gesture key codes
-#define KEY_GESTURE_W               246 // W
-#define KEY_GESTURE_M               247 // M
-#define KEY_GESTURE_S               248 // S
-#define KEY_DOUBLE_TAP              KEY_WAKEUP // double tap to wake
-#define KEY_GESTURE_CIRCLE          250 // draw circle to lunch camera
-#define KEY_GESTURE_TWO_SWIPE       251 // swipe two finger vertically to play/pause
-#define KEY_GESTURE_UP_ARROW        252 // draw up arrow to toggle flashlight
-#define KEY_GESTURE_LEFT_ARROW      253 // draw left arrow for previous track
-#define KEY_GESTURE_RIGHT_ARROW     254 // draw right arrow for next track
-#define KEY_GESTURE_DOWN_ARROW      255 // draw down arrow to toggle flashlight
-#define KEY_GESTURE_SWIPE_RIGHT     KEY_F5
-#define KEY_GESTURE_SWIPE_LEFT      KEY_F6
-#define KEY_GESTURE_SWIPE_DOWN      KEY_F7
-#define KEY_GESTURE_SWIPE_UP        KEY_F8
+// Not used anywhere after MSC_GESTURE introduction
+//#define KEY_GESTURE_W               246 // W
+//#define KEY_GESTURE_M               247 // M
+//#define KEY_GESTURE_S               248 // S
+//#define KEY_DOUBLE_TAP              KEY_WAKEUP // double tap to wake
+//#define KEY_GESTURE_CIRCLE          250 // draw circle to lunch camera
+//#define KEY_GESTURE_TWO_SWIPE       251 // swipe two finger vertically to play/pause
+//#define KEY_GESTURE_UP_ARROW        252 // draw up arrow to toggle flashlight
+//#define KEY_GESTURE_LEFT_ARROW      253 // draw left arrow for previous track
+//#define KEY_GESTURE_RIGHT_ARROW     254 // draw right arrow for next track
+//#define KEY_GESTURE_DOWN_ARROW      255 // draw down arrow to toggle flashlight
+//#define KEY_GESTURE_SWIPE_RIGHT     KEY_F5
+//#define KEY_GESTURE_SWIPE_LEFT      KEY_F6
+//#define KEY_GESTURE_SWIPE_DOWN      KEY_F7
+//#define KEY_GESTURE_SWIPE_UP        KEY_F8
 #endif
 
 // Button key mask
@@ -1257,59 +1275,59 @@ static void gesture_judge(struct synaptics_ts_data *ts)
 	// Get key code based on registered gesture.
 	switch (gesture) {
 	case GESTURE_DOUBLE_TAP:
-		keyCode = KEY_DOUBLE_TAP;
+		keyCode = MSC_GESTURE_DOUBLE_TAP; // KEY_DOUBLE_TAP
 		break;
 
 	case GESTURE_UP_ARROW:
-		keyCode = KEY_GESTURE_UP_ARROW;
+		keyCode = MSC_GESTURE_ARROW_UP; // KEY_GESTURE_UP_ARROW
 		break;
 
 	case GESTURE_DOWN_ARROW:
-		keyCode = KEY_GESTURE_DOWN_ARROW;
+		keyCode = MSC_GESTURE_ARROW_DOWN; // KEY_GESTURE_DOWN_ARROW
 		break;
 
 	case GESTURE_LEFT_ARROW:
-		keyCode = KEY_GESTURE_LEFT_ARROW;
+		keyCode = MSC_GESTURE_ARROW_LEFT; // KEY_GESTURE_LEFT_ARROW
 		break;
 
 	case GESTURE_RIGHT_ARROW:
-		keyCode = KEY_GESTURE_RIGHT_ARROW;
+		keyCode = MSC_GESTURE_ARROW_RIGHT; // KEY_GESTURE_RIGHT_ARROW
 		break;
 
 	case GESTURE_CIRCLE:
-		keyCode = KEY_GESTURE_CIRCLE;
+		keyCode = MSC_GESTURE_LETTER_O; // KEY_GESTURE_CIRCLE
 		break;
 
 	case GESTURE_DOUBLE_SWIPE:
-		keyCode = KEY_GESTURE_TWO_SWIPE;
+		keyCode = MSC_GESTURE_DOUBLE_SWIPE; // KEY_GESTURE_TWO_SWIPE
 		break;
 
 	case GESTURE_LEFT_SWIPE:
-		keyCode = KEY_GESTURE_SWIPE_LEFT;
+		keyCode = MSC_GESTURE_SWIPE_LEFT; // KEY_GESTURE_SWIPE_LEFT
 		break;
 
 	case GESTURE_RIGHT_SWIPE:
-		keyCode = KEY_GESTURE_SWIPE_RIGHT;
+		keyCode = MSC_GESTURE_SWIPE_RIGHT; // KEY_GESTURE_SWIPE_RIGHT
 		break;
 
 	case GESTURE_UP_SWIPE:
-		keyCode = KEY_GESTURE_SWIPE_UP;
+		keyCode = MSC_GESTURE_SWIPE_UP; // KEY_GESTURE_SWIPE_UP
 		break;
 
 	case GESTURE_DOWN_SWIPE:
-		keyCode = KEY_GESTURE_SWIPE_DOWN;
+		keyCode = MSC_GESTURE_SWIPE_DOWN; // KEY_GESTURE_SWIPE_DOWN
 		break;
 
 	case GESTURE_W:
-		keyCode = KEY_GESTURE_W;
+		keyCode = MSC_GESTURE_LETTER_W; // KEY_GESTURE_W
 		break;
 
 	case GESTURE_M:
-		keyCode = KEY_GESTURE_M;
+		keyCode = MSC_GESTURE_LETTER_M; // KEY_GESTURE_M
 		break;
 
 	case GESTURE_S:
-		keyCode = KEY_GESTURE_S;
+		keyCode = MSC_GESTURE_LETTER_S; // KEY_GESTURE_S
 		break;
 
 	default:
@@ -1320,9 +1338,11 @@ static void gesture_judge(struct synaptics_ts_data *ts)
 
 	if ((gesture & ts->gestures_enable) != 0) {
 		gesture_upload = gesture;
-		input_report_key(ts->input_dev, keyCode, 1);
-		input_sync(ts->input_dev);
-		input_report_key(ts->input_dev, keyCode, 0);
+		// No need to report key statuses when we're dealing with EV_MSC gestures ;)
+		//input_report_key(ts->input_dev, keyCode, 1);
+		//input_sync(ts->input_dev);
+		//input_report_key(ts->input_dev, keyCode, 0);
+		input_event(ts->input_dev, EV_MSC, MSC_GESTURE, keyCode);
 		input_sync(ts->input_dev);
 	} else {
 		ret = i2c_smbus_read_i2c_block_data(ts->client, F12_2D_CTRL20, 3, &(reportbuf[0x0]));
@@ -2860,7 +2880,7 @@ static ssize_t synaptics_rmi4_vendor_id_show(struct device *dev,
 }
 
 
-static int	synaptics_input_init(struct synaptics_ts_data *ts)
+static int synaptics_input_init(struct synaptics_ts_data *ts)
 {
 	int attr_count = 0;
 	int ret = 0;
@@ -2877,6 +2897,8 @@ static int	synaptics_input_init(struct synaptics_ts_data *ts)
 	set_bit(EV_SYN, ts->input_dev->evbit);
 	set_bit(EV_ABS, ts->input_dev->evbit);
 	set_bit(EV_KEY, ts->input_dev->evbit);
+	set_bit(EV_MSC, ts->input_dev->evbit);
+	ts->input_dev->mscbit[0] = BIT_MASK(MSC_GESTURE);
 	set_bit(ABS_MT_TOUCH_MAJOR, ts->input_dev->absbit);
 	set_bit(ABS_MT_WIDTH_MAJOR, ts->input_dev->absbit);
 	set_bit(ABS_MT_POSITION_X, ts->input_dev->absbit);
@@ -2885,20 +2907,21 @@ static int	synaptics_input_init(struct synaptics_ts_data *ts)
 	set_bit(BTN_TOOL_FINGER, ts->input_dev->keybit);
 #ifdef SUPPORT_GESTURE
 	set_bit(KEY_F4, ts->input_dev->keybit); //doulbe-tap resume
-	set_bit(KEY_DOUBLE_TAP, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_W, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_M, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_S, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_CIRCLE, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_TWO_SWIPE, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_UP_ARROW, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_LEFT_ARROW, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_RIGHT_ARROW, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_DOWN_ARROW, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_SWIPE_UP, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_SWIPE_LEFT, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_SWIPE_RIGHT, ts->input_dev->keybit);
-	set_bit(KEY_GESTURE_SWIPE_DOWN, ts->input_dev->keybit);
+	// Gestures are now handled by EV_MSC events and MSC_GESTURE bitmask
+	//set_bit(KEY_DOUBLE_TAP, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_W, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_M, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_S, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_CIRCLE, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_TWO_SWIPE, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_UP_ARROW, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_LEFT_ARROW, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_RIGHT_ARROW, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_DOWN_ARROW, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_SWIPE_UP, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_SWIPE_LEFT, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_SWIPE_RIGHT, ts->input_dev->keybit);
+	//set_bit(KEY_GESTURE_SWIPE_DOWN, ts->input_dev->keybit);
 #endif
 	set_bit(KEY_BUTTON_LEFT, ts->input_dev->keybit);
 	set_bit(KEY_BUTTON_RIGHT, ts->input_dev->keybit);
