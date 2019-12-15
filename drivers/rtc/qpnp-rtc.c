@@ -88,9 +88,10 @@ static int qpnp_write_wrapper(struct qpnp_rtc *rtc_dd, u8 *rtc_val,
 {
 	int rc;
 
-	if (base == (rtc_dd->alarm_base + REG_OFFSET_ALARM_CTRL1)) {
-		dev_info(rtc_dd->rtc_dev, "write ALARM_CTRL1=0x%x\n", *rtc_val);
-	}
+	// Mer: Disable logging due to spam
+	//if (base == (rtc_dd->alarm_base + REG_OFFSET_ALARM_CTRL1)) {
+	//	dev_info(rtc_dd->rtc_dev, "write ALARM_CTRL1=0x%x\n", *rtc_val);
+	//}
 
 	rc = regmap_bulk_write(rtc_dd->regmap, base, rtc_val, count);
 	if (rc) {
@@ -314,8 +315,9 @@ qpnp_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alarm)
 	value[1] = (secs >> 8) & 0xFF;
 	value[2] = (secs >> 16) & 0xFF;
 	value[3] = (secs >> 24) & 0xFF;
-	dev_info(dev, "val[0] = 0x%x, val[1] = 0x%x, val[2] = 0x%x, val[3] = 0x%x\n",
-					value[0], value[1], value[2], value[3]);
+	// Mer: Disable logging due to spam
+	//dev_info(dev, "val[0] = 0x%x, val[1] = 0x%x, val[2] = 0x%x, val[3] = 0x%x\n",
+	//				value[0], value[1], value[2], value[3]);
 
 	spin_lock_irqsave(&rtc_dd->alarm_ctrl_lock, irq_flags);
 

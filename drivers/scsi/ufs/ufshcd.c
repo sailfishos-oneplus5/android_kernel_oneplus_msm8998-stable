@@ -7876,7 +7876,8 @@ static int ufshcd_ioctl(struct scsi_device *dev, int cmd, void __user *buffer)
 
 	BUG_ON(!hba);
 	if (!buffer) {
-		dev_err(hba->dev, "%s: User buffer is NULL!\n", __func__);
+		// Mer: Disable logging due to spam
+		//dev_err(hba->dev, "%s: User buffer is NULL!\n", __func__);
 		return -EINVAL;
 	}
 
