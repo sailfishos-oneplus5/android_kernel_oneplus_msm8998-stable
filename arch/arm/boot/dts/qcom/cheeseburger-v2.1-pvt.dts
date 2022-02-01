@@ -20,7 +20,7 @@
 #include "cheeseburger-pvt.dtsi"
 
 / {
-	model = "Qualcomm Technologies, Inc. MSM 8998 v2.1 MTP";
+	model = "OnePlus 5";
 	compatible = "qcom,msm8998-mtp", "qcom,msm8998", "qcom,mtp";
 	qcom,board-id = <8 0 16859 23>;
 };
