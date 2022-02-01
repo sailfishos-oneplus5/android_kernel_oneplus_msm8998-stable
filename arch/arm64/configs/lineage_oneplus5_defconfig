@@ -5207,8 +5207,8 @@ CONFIG_NET_CLS_CGROUP=y
 CONFIG_CGROUP_NET_PRIO=y
 CONFIG_CGROUP_DEBUG=n
 
-# systemd-nspawn & lxc containers
-CONFIG_ANDROID_BINDER_DEVICES="binder,hwbinder,vndbinder,puddlejumper,vndpuddlejumper"
+# systemd-nspawn, lxc containers & Waydroid
+CONFIG_ANDROID_BINDER_DEVICES="binder,hwbinder,vndbinder,puddlejumper,hwpuddlejumper,vndpuddlejumper"
 CONFIG_OVERLAY_FS=y
 CONFIG_SQUASHFS=y
 CONFIG_SQUASHFS_XZ=y
@@ -5237,6 +5237,7 @@ CONFIG_IPC_NS=y
 CONFIG_USER_NS=y
 CONFIG_CGROUP_NS=y
 CONFIG_CGROUP_SCHEDTUNE=n
+CONFIG_SW_SYNC_USER=y
 
 # logging
 CONFIG_MESSAGE_LOGLEVEL_DEFAULT=3
@@ -5273,9 +5274,15 @@ CONFIG_IP6_NF_MATCH_AH=y
 CONFIG_IP6_NF_MATCH_MH=y
 CONFIG_IP6_NF_MATCH_FRAG=y
 
+# software security modules
+CONFIG_CUSE=y
+
 # systemd-bootchart
 #CONFIG_SCHEDSTATS=y
 #CONFIG_SCHED_DEBUG=y
+
+# minimize boot.img size
+CONFIG_BUILD_ARM64_APPENDED_DTB_IMAGE_NAMES="qcom/cheeseburger-v2.1-pvt qcom/dumpling-v2.1-pvt"
 
 # disable lots of kernel debugging & logging features
 CONFIG_DEBUG_KERNEL=n
